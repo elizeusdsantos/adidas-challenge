@@ -1,0 +1,3 @@
+rootProject.name = 'adidas-challenge'
+include 'subscription'
+
