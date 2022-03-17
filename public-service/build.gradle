@@ -14,8 +14,16 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.6'
+
+    // FIXUP for M1 chips
+    runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.72.Final:osx-aarch_64'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
 }
 
 test {
