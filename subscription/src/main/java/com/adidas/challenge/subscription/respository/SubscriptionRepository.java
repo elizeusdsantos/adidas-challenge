@@ -16,6 +16,6 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Lon
 
   @Modifying
   @Query("UPDATE subscription SET active = false WHERE id = :uuid")
-  Boolean unsubscribe(@Param("uuid") UUID uuid);
+  Boolean remove(@Param("uuid") UUID uuid);
 
 }

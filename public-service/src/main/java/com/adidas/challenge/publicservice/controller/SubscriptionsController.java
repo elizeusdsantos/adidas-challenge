@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(APIConstants.V1_PATH_PREFIX + "/subscriptions")
-public class SubscriptionController {
+public class SubscriptionsController {
 
   private final SubscriptionService subscriptionService;
 
-  public SubscriptionController(SubscriptionService subscriptionService) {
+  public SubscriptionsController(SubscriptionService subscriptionService) {
     this.subscriptionService = subscriptionService;
   }
 
@@ -25,12 +25,12 @@ public class SubscriptionController {
   @Operation(description = "Creates a new subscription")
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Boolean create(@RequestBody Subscription subscription) {
-    return subscriptionService.subscribe(subscription);
+    return subscriptionService.create(subscription);
   }
 
   @Operation(description = "Removes logically a subscription")
-  @DeleteMapping(value = "/remove/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @DeleteMapping(value = "/delete/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Boolean remove(@PathVariable("uuid") String uuid) {
-    return subscriptionService.unsubscribe(uuid);
+    return subscriptionService.delete(uuid);
   }
 }

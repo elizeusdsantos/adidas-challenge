@@ -3,8 +3,6 @@ package com.adidas.challenge.subscription.business;
 import com.adidas.challenge.subscription.model.Subscription;
 import com.adidas.challenge.subscription.respository.SubscriptionRepository;
 import com.google.common.collect.Lists;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
@@ -19,14 +17,16 @@ public class SubscriptionService {
   }
 
   // create a new subscription
-  public Subscription save(Subscription subscription) {
+  public Subscription create(Subscription subscription) {
     subscription = includeUUID(subscription);
     return repository.save(subscription);
   }
 
   // cancel a subscription
-  public Boolean unsubscribe(UUID uuid) {
-    return repository.unsubscribe(uuid);
+  public Boolean remove(String uuidString) {
+    UUID uuid = UUID.fromString(uuidString);
+
+    return repository.remove(uuid);
   }
 
   // get details of a subscription
@@ -37,11 +37,11 @@ public class SubscriptionService {
   // get all subscriptions
   public List<Subscription> findAll() {
     Iterable<Subscription> subscriptions = repository.findAll();
-    LinkedHashMap<String, String> x = new LinkedHashMap<>();
 
     return Lists.newArrayList(subscriptions);
   }
 
+  // Helper to include UUID
   private Subscription includeUUID(Subscription subscription) {
     return new Subscription(UUID.randomUUID(),
         subscription.subscriptionId(), subscription.email(), subscription.firstName(),

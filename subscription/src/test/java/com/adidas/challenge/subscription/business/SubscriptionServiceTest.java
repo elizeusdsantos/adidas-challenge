@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import com.adidas.challenge.subscription.model.Gender;
 import com.adidas.challenge.subscription.model.Subscription;
 import com.adidas.challenge.subscription.respository.SubscriptionRepository;
 import java.time.LocalDate;
@@ -23,8 +22,8 @@ import org.mockito.Mockito;
 
 class SubscriptionServiceTest {
 
-  private SubscriptionService service;
   private static SubscriptionRepository repository;
+  private SubscriptionService service;
 
   @BeforeAll
   static void beforeAll() {
@@ -41,12 +40,12 @@ class SubscriptionServiceTest {
   void save_whenValidSubscription_mustReturnTheSubscription() {
     // arrange
     Subscription subscription = new Subscription(UUID.randomUUID(), 1L, "first_email@adidas.com",
-        null, null, LocalDate.of(2001, 01, 11), true, 1L);
+        null, null, LocalDate.of(2001, 1, 11), true, 1L);
 
     when(repository.save(any())).thenReturn(subscription);
 
     // act
-    Subscription result = service.save(subscription);
+    Subscription result = service.create(subscription);
 
     // assert
     assertEquals(subscription, result);
@@ -55,10 +54,10 @@ class SubscriptionServiceTest {
   @Test
   void unsubscribe_whenReceiveNonNullUuid_mustReturnTrue() {
     // arrange
-    when(repository.unsubscribe(any())).thenReturn(true);
+    when(repository.remove(any())).thenReturn(true);
 
     // act
-    Boolean result = service.unsubscribe(UUID.randomUUID());
+    Boolean result = service.remove("random string");
 
     // assert
     assertTrue(result);
@@ -67,7 +66,7 @@ class SubscriptionServiceTest {
   @Test
   void unsubscribe_whenReceiveNullUuid_mustThrowIllegalArgumentException() {
     // act && assert
-    Exception exception =  assertThrows(IllegalArgumentException.class, () -> service.unsubscribe(null));
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> service.remove(null));
   }
 
   @Test
@@ -86,7 +85,7 @@ class SubscriptionServiceTest {
   void findByEmail_whenSubscriptionFound_mustReturnSubscription() {
     // arrange
     Subscription subscription = new Subscription(UUID.randomUUID(), 1L, "first_email@adidas.com",
-        null, null, LocalDate.of(2001, 01, 11), true, 1L);
+        null, null, LocalDate.of(2001, 1, 11), true, 1L);
 
     when(repository.findByEmail(any())).thenReturn(subscription);
 
@@ -101,10 +100,10 @@ class SubscriptionServiceTest {
   void findAll_whenThereAreSubscriptions_mustReturnAllSubscriptions() {
     // arrange
     Subscription subscriptionOne = new Subscription(UUID.randomUUID(), 1L, "first_email@adidas.com",
-        "MyFirstName1", Gender.MALE, LocalDate.of(2001, 01, 11), true, 1L);
+        "MyFirstName1", "male", LocalDate.of(2001, 1, 11), true, 1L);
 
     Subscription subscriptionTwo = new Subscription(UUID.randomUUID(), 2L,
-        "second_email@adidas.com", "MyFirstName2", Gender.FEMALE, LocalDate.of(2002, 02, 12), true,
+        "second_email@adidas.com", "MyFirstName2", "male", LocalDate.of(2002, 2, 12), true,
         2L);
 
     when(repository.findAll()).thenReturn(Arrays.asList(subscriptionOne, subscriptionTwo));

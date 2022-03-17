@@ -10,18 +10,17 @@ public class SubscriptionService {
 
   private final WebClient subscriptionApiClient;
 
-
   public SubscriptionService(WebClient subscriptionApiClient) {
     this.subscriptionApiClient = subscriptionApiClient;
   }
 
-  public Boolean unsubscribe(String uuid) {
-    Boolean response = subscriptionApiClient.get().uri("/subscriptions/remove/" + uuid).retrieve()
-        .bodyToMono(Boolean.class).block(Duration.ofSeconds(3));
-    return response;
+  public Boolean delete(String uuid) {
+    return subscriptionApiClient.delete().uri("/subscriptions/remove/" + uuid).retrieve()
+        .bodyToMono(Boolean.class).block(Duration.ofMillis(100));
   }
 
-  public Boolean subscribe(Subscription subscription) {
-    throw new UnsupportedOperationException();
+  public Boolean create(Subscription subscription) {
+    return subscriptionApiClient.post().uri("/subscriptions/").bodyValue(subscription).retrieve()
+        .bodyToMono(Boolean.class).block(Duration.ofMillis(100));
   }
 }
