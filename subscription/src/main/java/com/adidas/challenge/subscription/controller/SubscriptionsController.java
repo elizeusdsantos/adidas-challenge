@@ -29,7 +29,7 @@ public class SubscriptionsController {
   }
 
   @GetMapping("/{email}")
-  public Subscription findByemail(@PathVariable("email") String email) {
+  public Subscription findByEmail(@PathVariable("email") String email) {
     return subscriptionService.findByEmail(email);
   }
 
@@ -40,7 +40,7 @@ public class SubscriptionsController {
 
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Subscription add(@RequestBody Subscription subscription) {
+  public Subscription save(@RequestBody Subscription subscription) {
     return subscriptionService.save(subscription);
   }
 }
