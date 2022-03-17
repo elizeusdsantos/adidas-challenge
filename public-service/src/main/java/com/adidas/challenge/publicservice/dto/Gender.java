@@ -1,4 +1,4 @@
-package com.adidas.challenge.subscription.model;
+package com.adidas.challenge.publicservice.dto;
 
 public enum Gender {
   MALE("male"),
