@@ -57,16 +57,10 @@ class SubscriptionServiceTest {
     when(repository.remove(any())).thenReturn(true);
 
     // act
-    Boolean result = service.remove("random string");
+    Boolean result = service.remove(UUID.randomUUID().toString());
 
     // assert
     assertTrue(result);
-  }
-
-  @Test
-  void unsubscribe_whenReceiveNullUuid_mustThrowIllegalArgumentException() {
-    // act && assert
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> service.remove(null));
   }
 
   @Test
