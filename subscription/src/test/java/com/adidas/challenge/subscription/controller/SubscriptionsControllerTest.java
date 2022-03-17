@@ -10,7 +10,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import com.adidas.challenge.subscription.business.SubscriptionService;
-import com.adidas.challenge.subscription.model.Gender;
 import com.adidas.challenge.subscription.model.Subscription;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -53,11 +52,11 @@ class SubscriptionsControllerTest {
 
     // arrange
     Subscription subscriptionOne = new Subscription(UUID.randomUUID(), 1L, "first_email@adidas.com",
-        "MyFirstName1", Gender.MALE, LocalDate.of(2001, 01, 11), true, 1L);
+        "MyFirstName1", "male", LocalDate.of(2001, 01, 11), true, 1L);
 
     Subscription subscriptionTwo = new Subscription(UUID.randomUUID(), 2L,
         "second_email@adidas.com",
-        "MyFirstName2", Gender.FEMALE, LocalDate.of(2002, 02, 12), true, 2L);
+        "MyFirstName2", "female", LocalDate.of(2002, 02, 12), true, 2L);
 
     when(subscriptionService.findAll()).thenReturn(Arrays.asList(subscriptionOne, subscriptionTwo));
 
@@ -88,7 +87,7 @@ class SubscriptionsControllerTest {
     String email = "first_email@adidas.com";
 
     Subscription subscription = new Subscription(UUID.randomUUID(), 1L, email,
-        "MyFirstName", Gender.MALE, LocalDate.of(2001, 01, 11), true, 1L);
+        "MyFirstName", "female", LocalDate.of(2001, 01, 11), true, 1L);
 
     when(subscriptionService.findByEmail(email)).thenReturn(subscription);
 
@@ -105,7 +104,7 @@ class SubscriptionsControllerTest {
     when(subscriptionService.unsubscribe(any())).thenReturn(true);
 
     // act
-    Boolean result = subscriptionsController.unsubscribe(UUID.randomUUID());
+    Boolean result = subscriptionsController.remove("zzz");
 
     // assert
     assertTrue(result);
@@ -117,7 +116,7 @@ class SubscriptionsControllerTest {
     when(subscriptionService.unsubscribe(any())).thenReturn(false);
 
     // act
-    Boolean result = subscriptionsController.unsubscribe(UUID.randomUUID());
+    Boolean result = subscriptionsController.remove("zzz");
 
     // assert
     assertFalse(result);
@@ -127,11 +126,11 @@ class SubscriptionsControllerTest {
   void save_whenSubscriptionIsValid_mustReturnSubscription() {
     // arrange
     Subscription subscription = new Subscription(UUID.randomUUID(), 1L, "first_email@adidas.com",
-        "MyFirstName", Gender.MALE, LocalDate.of(2001, 01, 11), true, 1L);
+        "MyFirstName", "male", LocalDate.of(2001, 01, 11), true, 1L);
     when(subscriptionService.save(any(Subscription.class))).thenReturn(subscription);
 
     // act
-    Subscription result = subscriptionsController.save(subscription);
+    Subscription result = subscriptionsController.create(subscription);
 
     // assert
     assertEquals(subscription, result);
@@ -141,11 +140,11 @@ class SubscriptionsControllerTest {
   void save_whenSubscriptionIsNotValid_mustReturnNull() {
     // arrange
     Subscription subscription = new Subscription(UUID.randomUUID(), 1L, "first_email@adidas.com",
-        "MyFirstName", Gender.MALE, LocalDate.of(2001, 01, 11), true, 1L);
+        "MyFirstName", "male", LocalDate.of(2001, 01, 11), true, 1L);
     when(subscriptionService.save(any(Subscription.class))).thenReturn(null);
 
     // act
-    Subscription result = subscriptionsController.save(subscription);
+    Subscription result = subscriptionsController.create(subscription);
 
     // assert
     assertNull(result);
