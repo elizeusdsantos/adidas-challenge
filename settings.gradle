@@ -1,3 +1,4 @@
 rootProject.name = 'adidas-challenge'
 include 'subscription'
+include 'public-service'
 
