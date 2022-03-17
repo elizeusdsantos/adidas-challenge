@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,14 +34,17 @@ public class SubscriptionsController {
     return subscriptionService.findByEmail(email);
   }
 
-  @GetMapping("/unsubscribe/{uuid}")
-  public boolean unsubscribe(@PathVariable("uuid") UUID uuid) {
-    return subscriptionService.unsubscribe(uuid);
+  // TODO: rename to remove
+  @RequestMapping(value = "/remove/{uuid}", method = RequestMethod.GET, produces = { "application/json" })
+  public boolean remove(@PathVariable("uuid") String uuid) {
+    return true;
+//    return subscriptionService.unsubscribe(uuid);
   }
 
+  // TODO: rename to create
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
-  public Subscription save(@RequestBody Subscription subscription) {
+  public Subscription create(@RequestBody Subscription subscription) {
     return subscriptionService.save(subscription);
   }
 }

@@ -5,7 +5,7 @@ import java.util.UUID;
 import javax.validation.constraints.NotNull;
 
 public record Subscription(UUID id, Long subscriptionId, @NotNull String email, String firstName,
-                           Gender gender, @NotNull LocalDate birthDate, Boolean active,
+                           String gender, @NotNull LocalDate birthDate, Boolean active,
                            @NotNull Long campaignId) {
 
 }
