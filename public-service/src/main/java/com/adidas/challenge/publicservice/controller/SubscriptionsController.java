@@ -24,13 +24,13 @@ public class SubscriptionsController {
 
   @Operation(description = "Creates a new subscription")
   @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public Boolean create(@RequestBody Subscription subscription) {
+  public Subscription create(@RequestBody Subscription subscription) {
     return subscriptionService.create(subscription);
   }
 
   @Operation(description = "Removes logically a subscription")
   @DeleteMapping(value = "/delete/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Boolean remove(@PathVariable("uuid") String uuid) {
-    return subscriptionService.delete(uuid);
+  public void remove(@PathVariable("uuid") String uuid) {
+    subscriptionService.delete(uuid);
   }
 }

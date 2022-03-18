@@ -3,7 +3,7 @@
 CREATE TABLE subscription (
   id UUID NOT NULL,
   subscription_id SERIAL PRIMARY KEY,
-  email VARCHAR(200) NOT NULL,
+  email VARCHAR(200) NOT NULL UNIQUE,
   first_name VARCHAR(50),
   gender VARCHAR(15),
   birth_date DATE NOT NULL,

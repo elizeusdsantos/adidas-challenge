@@ -18,7 +18,17 @@ public class SubscriptionService {
 
   // create a new subscription
   public Subscription create(Subscription subscription) {
-    subscription = includeUUID(subscription);
+    Subscription existentSubscription = repository.findByEmail(subscription.email());
+
+    if (existentSubscription != null) {
+      if (existentSubscription.active()) {
+        return existentSubscription;
+      }
+      return repository.reactivate(existentSubscription.id(), subscription.campaignId());
+    }
+
+    subscription = activateSubscription(includeUUID(subscription));
+
     return repository.save(subscription);
   }
 
@@ -41,11 +51,17 @@ public class SubscriptionService {
     return Lists.newArrayList(subscriptions);
   }
 
-  // Helper to include UUID
+  // Helper to include UUID.
   private Subscription includeUUID(Subscription subscription) {
-    return new Subscription(UUID.randomUUID(),
-        subscription.subscriptionId(), subscription.email(), subscription.firstName(),
-        subscription.gender(), subscription.birthDate(), subscription.active(),
+    return new Subscription(UUID.randomUUID(), subscription.subscriptionId(), subscription.email(),
+        subscription.firstName(), subscription.gender(), subscription.birthDate(),
+        subscription.active(), subscription.campaignId());
+  }
+
+  // Helper to activate the subscription.
+  private Subscription activateSubscription(Subscription subscription) {
+    return new Subscription(UUID.randomUUID(), subscription.subscriptionId(), subscription.email(),
+        subscription.firstName(), subscription.gender(), subscription.birthDate(), true,
         subscription.campaignId());
   }
 }

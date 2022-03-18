@@ -35,8 +35,8 @@ public class SubscriptionsController {
     return subscriptionService.findByEmail(email);
   }
 
-  @DeleteMapping(value = "/remove/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
-  @Operation(description = "Removes logically a subscription (active = false).")
+  @DeleteMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @Operation(description = "Deletes logically a subscription (active = false).")
   public boolean remove(@PathVariable("uuid") String uuid) {
     return subscriptionService.remove(uuid);
   }

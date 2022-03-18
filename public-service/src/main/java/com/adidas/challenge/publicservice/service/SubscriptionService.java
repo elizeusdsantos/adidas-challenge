@@ -14,13 +14,13 @@ public class SubscriptionService {
     this.subscriptionApiClient = subscriptionApiClient;
   }
 
-  public Boolean delete(String uuid) {
-    return subscriptionApiClient.delete().uri("/subscriptions/remove/" + uuid).retrieve()
-        .bodyToMono(Boolean.class).block(Duration.ofMillis(100));
+  public void delete(String uuid) {
+    subscriptionApiClient.delete().uri("/subscriptions/" + uuid).retrieve()
+        .bodyToMono(Boolean.class).block(Duration.ofSeconds(3));
   }
 
-  public Boolean create(Subscription subscription) {
+  public Subscription create(Subscription subscription) {
     return subscriptionApiClient.post().uri("/subscriptions/").bodyValue(subscription).retrieve()
-        .bodyToMono(Boolean.class).block(Duration.ofMillis(100));
+        .bodyToMono(Subscription.class).block(Duration.ofSeconds(3));
   }
 }
