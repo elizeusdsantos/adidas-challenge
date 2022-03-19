@@ -31,9 +31,8 @@ class SubscriptionServiceTest {
 
   @BeforeEach
   void setUp() {
-    service = new SubscriptionService(repository);
+    service = new SubscriptionService(repository, null);
   }
-
 
   @Test
   void save_whenValidSubscription_mustReturnTheSubscription() {

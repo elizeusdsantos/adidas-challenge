@@ -5,31 +5,38 @@ import com.adidas.challenge.subscription.respository.SubscriptionRepository;
 import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SubscriptionService {
 
   private final SubscriptionRepository repository;
+  private final RabbitTemplate rabbitTemplate;
 
-  public SubscriptionService(SubscriptionRepository repository) {
+  public SubscriptionService(SubscriptionRepository repository, RabbitTemplate rabbitTemplate) {
     this.repository = repository;
+    this.rabbitTemplate = rabbitTemplate;
   }
 
   // create a new subscription
   public Subscription create(Subscription subscription) {
-    Subscription existentSubscription = repository.findByEmail(subscription.email());
+    Subscription currentSubscription = repository.findByEmail(subscription.email());
 
-    if (existentSubscription != null) {
-      if (existentSubscription.active()) {
-        return existentSubscription;
+    if (currentSubscription != null) {
+      if (currentSubscription.active()) {
+        return currentSubscription;
       }
-      return repository.reactivate(existentSubscription.id(), subscription.campaignId());
+      rabbitTemplate.convertAndSend("new-subscriptions", currentSubscription);
+      return repository.reactivate(currentSubscription.id(), subscription.campaignId());
     }
 
     subscription = activateSubscription(includeUUID(subscription));
+    subscription = repository.save(subscription);
 
-    return repository.save(subscription);
+    rabbitTemplate.convertAndSend("new-subscriptions", subscription);
+
+    return subscription;
   }
 
   // cancel a subscription
