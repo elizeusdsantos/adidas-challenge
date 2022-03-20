@@ -1,0 +1,3 @@
+spring:
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}

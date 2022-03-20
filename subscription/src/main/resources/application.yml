@@ -3,6 +3,13 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/subscription_db
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:5432/subscription_db
     username: mypguser
     password: mypgpass
+  security:
+    user:
+      password: test1234
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+jwt:
+  secret: techgeeknerd

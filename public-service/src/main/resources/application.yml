@@ -9,4 +9,4 @@ springdoc:
     display-request-duration: true
 
 apis:
-  subscription_api_url: 'http://localhost:8081/adidas-subscriptions-service/v1/'
+  subscription_api_url: 'http://${SUBSCRIPTION_HOST:localhost}:8081/adidas-subscriptions-service/v1/'

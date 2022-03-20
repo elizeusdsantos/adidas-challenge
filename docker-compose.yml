@@ -1,0 +1,60 @@
+version: "3.8"
+services:
+  rabbitmq:
+    image: rabbitmq:3.8-management
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  mailing-service:
+    build: ./mailing-service
+    image: mailing-service
+    restart: on-failure
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBIT_HOST: rabbitmq
+
+  subscription-db:
+    image: postgres:14.2
+    restart: always
+    environment:
+      POSTGRES_USER: mypguser
+      POSTGRES_PASSWORD: mypgpass
+      POSTGRES_DB: subscription-db
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  subscription-service:
+    build: ./subscription
+    image: subscription-service
+    depends_on:
+      - subscription-db
+      - rabbitmq
+    ports:
+      - '8081:8081'
+    links:
+      - subscription-db
+      - rabbitmq
+    environment:
+      DATABASE_HOST: subscription-db
+      RABBIT_HOST: rabbitmq
+
+  public-service:
+    build: ./public-service
+    image: public-service
+    depends_on:
+      - subscription-service
+    ports:
+      - '8080:8080'
+    links:
+      - subscription-service
+    environment:
+      SUBSCRIPTION_HOST: subscription-service
+
+volumes:
+    db:
