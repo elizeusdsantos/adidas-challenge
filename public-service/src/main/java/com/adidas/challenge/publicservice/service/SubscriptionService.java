@@ -16,7 +16,7 @@ public class SubscriptionService {
 
   // We are using a basic auth here just to keep simple, in a real project I would use oAuth2
   public void delete(String uuid) {
-    subscriptionApiClient.delete().uri("/subscriptions/" + uuid)
+    subscriptionApiClient.delete().uri("/subscriptions?uuid=" + uuid)
         .headers(httpHeaders -> httpHeaders.setBasicAuth("YWRtaW46cGFzc3dvcmQ=")).retrieve()
         .bodyToMono(Boolean.class).block(Duration.ofSeconds(3));
   }

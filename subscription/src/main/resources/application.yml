@@ -1,6 +1,14 @@
 server:
   port: 8081
 
+springdoc:
+  api-docs:
+    path: '/v1/docs'
+  swagger-ui:
+    path: '/v1/swagger'
+    disable-swagger-default-url: true
+    display-request-duration: true
+
 spring:
   datasource:
     url: jdbc:postgresql://${DATABASE_HOST:localhost}:5432/subscription_db

@@ -14,7 +14,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http
         .csrf().disable()
-        .authorizeRequests().anyRequest().authenticated()
+        .authorizeRequests()
+        .antMatchers("/v1/swagger").permitAll()
+        .antMatchers("/v1/swagger-ui/**").permitAll()
+        .antMatchers("/v1/docs/**").permitAll()
+        .anyRequest().authenticated()
         .and()
         .httpBasic();
   }

@@ -34,8 +34,9 @@ public class Application implements CommandLineRunner {
   }
 
   public void sendEmailNewSubscriptions(Map<String, String> mailProperties) {
-    String fakeText = "Hello, thanks for your subscription. To unsubscribe click on this link: http://localhost:8080/adidas-public-service/v1/subscriptions/delete/"
-        + mailProperties.get("uuid");
+    String fakeText =
+        "Hello, thanks for your subscription. To unsubscribe click on this link: http://localhost:8080/adidas-public-service/v1/subscriptions/delete/"
+            + mailProperties.get("uuid");
     LOGGER.info(fakeText);
   }
 }
