@@ -4,7 +4,7 @@ import com.adidas.challenge.publicservice.dto.Subscription;
 import com.adidas.challenge.publicservice.service.SubscriptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +29,7 @@ public class SubscriptionsController {
   }
 
   @Operation(description = "Removes logically a subscription")
-  @DeleteMapping(value = "/delete/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/delete/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
   public void remove(@PathVariable("uuid") String uuid) {
     subscriptionService.delete(uuid);
   }
