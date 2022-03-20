@@ -88,7 +88,7 @@ Running from the first time can take a while, docker will download all images an
 
 After starting, you can read the documentation made by swagger for the two APIs using the following links: \
 (public-service) http://localhost:8080/v1/swagger-ui/index.html \
-(subscription-service) http://localhost:8081/v1/swagger-ui/index.html \
+(subscription-service) http://localhost:8081/v1/swagger-ui/index.html 
 
 I recommend you to use a client like Postman or Insomnia since you have to pass an authorization token with the headers.
 You can see how to call the API using a basic auth in the picture(token `Basic YWRtaW46cGFzc3dvcmQ=`)
