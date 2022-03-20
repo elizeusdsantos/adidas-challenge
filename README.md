@@ -86,7 +86,7 @@ I suggest you do not use `-d` option, its interesting to see the logs, especiall
 
 Running from the first time can take a while, docker will download all images and after that, all containers will download the dependencies and for sure it will take a few minutes.
 
-After starting, you can read the documentation made by swagger for the two APIs using the following links:
+After starting, you can read the documentation made by swagger for the two APIs using the following links: \
 (public-service) http://localhost:8080/v1/swagger-ui/index.html \
 (subscription-service) http://localhost:8081/v1/swagger-ui/index.html \
 
