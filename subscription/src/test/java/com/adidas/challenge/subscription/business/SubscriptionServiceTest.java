@@ -17,21 +17,24 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 
 class SubscriptionServiceTest {
 
   private static SubscriptionRepository repository;
+  private static RabbitTemplate rabbitTemplate;
   private SubscriptionService service;
 
   @BeforeAll
   static void beforeAll() {
     repository = Mockito.mock(SubscriptionRepository.class);
+    rabbitTemplate = Mockito.mock(RabbitTemplate.class);
   }
 
   @BeforeEach
   void setUp() {
-    service = new SubscriptionService(repository, null);
+    service = new SubscriptionService(repository, rabbitTemplate);
   }
 
   @Test
@@ -39,8 +42,8 @@ class SubscriptionServiceTest {
     // arrange
     Subscription subscription = new Subscription(UUID.randomUUID(), 1L, "first_email@adidas.com",
         null, null, LocalDate.of(2001, 1, 11), true, 1L);
-
     when(repository.save(any())).thenReturn(subscription);
+    when(rabbitTemplate.convertSendAndReceive(any())).thenReturn(null);
 
     // act
     Subscription result = service.create(subscription);

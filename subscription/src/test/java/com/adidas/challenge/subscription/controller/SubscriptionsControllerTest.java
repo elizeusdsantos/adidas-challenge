@@ -123,7 +123,7 @@ class SubscriptionsControllerTest {
   }
 
   @Test
-  void save_whenSubscriptionIsValid_mustReturnSubscription() {
+  void create_whenSubscriptionIsValid_mustReturnSubscription() {
     // arrange
     Subscription subscription = new Subscription(UUID.randomUUID(), 1L, "first_email@adidas.com",
         "MyFirstName", "male", LocalDate.of(2001, 1, 11), true, 1L);
@@ -137,7 +137,7 @@ class SubscriptionsControllerTest {
   }
 
   @Test
-  void save_whenSubscriptionIsNotValid_mustReturnNull() {
+  void create_whenSubscriptionIsNotValid_mustReturnNull() {
     // arrange
     Subscription subscription = new Subscription(UUID.randomUUID(), 1L, "first_email@adidas.com",
         "MyFirstName", "male", LocalDate.of(2001, 1, 11), true, 1L);
