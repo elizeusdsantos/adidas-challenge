@@ -24,11 +24,16 @@ public class SubscriptionService {
     Subscription currentSubscription = repository.findByEmail(subscription.email());
 
     if (currentSubscription != null) {
-      if (currentSubscription.active()) {
+      if (Boolean.TRUE.equals(currentSubscription.active())) {
         return currentSubscription;
       }
-      rabbitTemplate.convertAndSend("new-subscriptions", currentSubscription);
-      return repository.reactivate(currentSubscription.id(), subscription.campaignId());
+
+      repository.reactivate(currentSubscription.id(), subscription.campaignId());
+      subscription = repository.findByEmail(subscription.email());
+
+      rabbitTemplate.convertAndSend("new-subscriptions", subscription);
+
+      return subscription;
     }
 
     subscription = activateSubscription(includeUUID(subscription));

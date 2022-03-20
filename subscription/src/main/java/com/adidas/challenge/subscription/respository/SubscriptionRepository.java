@@ -20,5 +20,5 @@ public interface SubscriptionRepository extends CrudRepository<Subscription, Lon
 
   @Modifying
   @Query("UPDATE subscription SET active = true, campaign_id = :campaignId WHERE id = :uuid")
-  Subscription reactivate(@Param("uuid") UUID uuid, @Param("campaignId") Long campaignId);
+  Boolean reactivate(@Param("uuid") UUID uuid, @Param("campaignId") Long campaignId);
 }
