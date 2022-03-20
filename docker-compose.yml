@@ -57,4 +57,4 @@ services:
       SUBSCRIPTION_HOST: subscription-service
 
 volumes:
-    db:
+  db:

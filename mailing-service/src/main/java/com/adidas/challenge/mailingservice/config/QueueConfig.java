@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class QueueConfig {
-  private AmqpAdmin amqpAdmin;
+
+  private final AmqpAdmin amqpAdmin;
 
   public QueueConfig(AmqpAdmin amqpAdmin) {
     this.amqpAdmin = amqpAdmin;

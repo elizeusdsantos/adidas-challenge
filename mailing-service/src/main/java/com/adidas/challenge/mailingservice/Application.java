@@ -3,6 +3,8 @@ package com.adidas.challenge.mailingservice;
 import com.adidas.challenge.subscription.model.Subscription;
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,13 +13,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
   }
 
   @Override
-  public void run(String... args) throws Exception {
-
+  public void run(String... args) {
+    LOGGER.info("Starting the mailing server.");
   }
 
   @RabbitListener(queues = "new-subscriptions")
@@ -29,8 +33,9 @@ public class Application implements CommandLineRunner {
     sendEmailNewSubscriptions(mailProperties);
   }
 
-  public void sendEmailNewSubscriptions(Map<String, String> mailProperties){
-    String fakeText = "Hello, thanks for your subscription. To unubscribe click on this link: " + mailProperties.get("uuid");
-    System.out.println(fakeText);
+  public void sendEmailNewSubscriptions(Map<String, String> mailProperties) {
+    String fakeText = "Hello, thanks for your subscription. To unubscribe click on this link: "
+        + mailProperties.get("uuid");
+    LOGGER.info(fakeText);
   }
 }

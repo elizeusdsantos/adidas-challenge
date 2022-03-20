@@ -9,4 +9,5 @@ public record Subscription(UUID id, Long subscriptionId, String email,
                            String firstName, String gender,
                            @JsonFormat(pattern = "dd/MM/yyyy") LocalDate birthDate,
                            Boolean active, Long campaignId) implements Serializable {
+
 }
