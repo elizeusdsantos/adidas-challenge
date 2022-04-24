@@ -2,5 +2,4 @@ rootProject.name = 'adidas-challenge'
 include 'subscription'
 include 'public-service'
 include 'mailing-service'
-include 'auth-service'
 
