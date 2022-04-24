@@ -101,5 +101,6 @@ fabric.properties
 **/build
 **.iml
 
+**/.DS_Store
 # EXCLUSIONS
 !/gradle/wrapper/gradle-wrapper.jar
