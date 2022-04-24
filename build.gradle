@@ -1,4 +1,6 @@
-
+plugins {
+    id 'jacoco'
+}
 allprojects {
     apply plugin: 'java'
 
