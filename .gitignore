@@ -100,3 +100,6 @@ fabric.properties
 .idea/
 **/build
 **.iml
+
+# EXCLUSIONS
+!/gradle/wrapper/gradle-wrapper.jar
