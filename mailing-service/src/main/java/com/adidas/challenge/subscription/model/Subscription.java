@@ -1,6 +1,7 @@
 package com.adidas.challenge.subscription.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;

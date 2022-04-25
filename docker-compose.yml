@@ -23,7 +23,7 @@ services:
     environment:
       POSTGRES_USER: mypguser
       POSTGRES_PASSWORD: mypgpass
-      POSTGRES_DB: subscription-db
+      POSTGRES_DB: subscription_db
     ports:
       - '5432:5432'
     volumes:
