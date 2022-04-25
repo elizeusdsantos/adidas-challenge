@@ -18,3 +18,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.13.2'
 }
+
+test {
+    useJUnitPlatform()
+}
