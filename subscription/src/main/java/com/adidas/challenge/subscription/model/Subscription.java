@@ -1,11 +1,12 @@
 package com.adidas.challenge.subscription.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
-import javax.validation.constraints.NotNull;
-import org.springframework.data.annotation.Id;
 
 public record Subscription(UUID id, @Id Long subscriptionId, @NotNull String email,
                            String firstName, String gender,
