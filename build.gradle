@@ -24,13 +24,15 @@ allprojects {
         useJUnitPlatform()
     }
 
+    jacoco {
+        toolVersion = "0.8.8"
+    }
     jacocoTestReport {
         group = "Reporting"
         reports {
-            xml.enabled true
-            csv.enabled false
-            html.destination file("${buildDir}/reports/coverage")
-            xml.destination file("${buildDir}/reports/jacoco.xml")
+            xml.required
+            html.outputLocation.set file("${buildDir}/reports/coverage")
+            xml.outputLocation.set file("${buildDir}/reports/jacoco.xml")
         }
     }
 
@@ -42,6 +44,6 @@ sonarqube {
         property "sonar.projectKey", "elizeusdsantos_adidas-challenge"
         property "sonar.organization", "elizeusdsantos"
         property "sonar.host.url", "https://sonarcloud.io"
-        property"sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/jacoco/"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${project.buildDir}/jacoco/"
     }
 }

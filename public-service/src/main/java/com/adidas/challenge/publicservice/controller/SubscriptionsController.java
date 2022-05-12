@@ -16,7 +16,6 @@ public class SubscriptionsController {
         this.subscriptionService = subscriptionService;
     }
 
-
     @Operation(description = "Creates a new subscription")
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Subscription create(@RequestBody Subscription subscription) {
